@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <!-- خلفية مربعة بجوانب منحنية تناسب أيقونات التطبيقات -->
+  <rect width="512" height="512" rx="112" fill="#0F172A"/>
+  
+  <!-- إطار دائر خلفي لإبراز الشعار -->
+  <circle cx="256" cy="220" r="150" fill="#0284C7" opacity="0.15"/>
+  
+  <!-- عنصر الكتاب والأمواج -->
+  <g transform="translate(106, 90)">
+    <!-- صفحة الكتاب الخلفية / موجة ثانوية -->
+    <path d="M 30 180 C 100 130, 200 130, 270 180 C 270 110, 200 60, 30 110 Z" fill="#14B8A6" />
+    <!-- الكتاب الأساسي / الموجة الرئيسية -->
+    <path d="M 10 200 C 100 120, 200 120, 290 200 C 290 100, 200 30, 10 90 Z" fill="#0284C7" />
+    <!-- غلاف الكتاب/الأساس -->
+    <path d="M 10 200 C 100 140, 200 140, 290 200 L 290 215 C 200 155, 100 155, 10 215 Z" fill="#38BDF8" />
+    <!-- قطرة/شمس المعرفة -->
+    <circle cx="150" cy="45" r="18" fill="#38BDF8" />
+  </g>
+
+  <!-- اسم المكتبة -->
+  <text x="256" y="380" font-family="'Cairo', 'Tajawal', sans-serif" font-weight="800" font-size="42" fill="#FFFFFF" text-anchor="middle">
+    مكتبة المحيط
+  </text>
+  <text x="256" y="420" font-family="'Cairo', 'Tajawal', sans-serif" font-weight="500" font-size="20" fill="#38BDF8" text-anchor="middle" letter-spacing="2">
+    OCEAN LIBRARY
+  </text>
+</svg>
