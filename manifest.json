@@ -1,17 +1,17 @@
 {
-  "short_name": "المحيط",
+  "short_name": "مكتبة المحيط",
   "name": "مكتبة المحيط - إدارة المبيعات",
   "icons": [
     {
-      "src": "Logo.svg",
+      "src": "./Logo.svg",
       "sizes": "192x192 512x512",
-      "type": "image/svg+xml",
-      "purpose": "any maskable"
+      "type": "image/svg+xml"
     }
   ],
   "start_url": "./index.html",
+  "scope": "./",
   "background_color": "#0284c7",
-  "theme_color": "#0f172a",
+  "theme_color": "#0284c7",
   "display": "standalone",
   "orientation": "portrait"
 }
