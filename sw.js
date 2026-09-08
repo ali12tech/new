@@ -1,4 +1,4 @@
-const CACHE_NAME = 'ocean-store-v2';
+const CACHE_NAME = 'ocean-store-v3';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
@@ -33,7 +33,15 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
   event.respondWith(
     caches.match(event.request).then((cachedResponse) => {
-      return cachedResponse || fetch(event.request);
+      if (cachedResponse) {
+        return cachedResponse;
+      }
+      return fetch(event.request).catch(() => {
+        // في حال انقطاع الشبكة وطلب صفحة رئيسية
+        if (event.request.mode === 'navigate') {
+          return caches.match('./index.html');
+        }
+      });
     })
   );
 });
