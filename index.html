@@ -1,14 +1,116 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/new/Logo.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>مكتبة المحيط</title>
-    <script type="module" crossorigin src="/new/assets/index-CSNpT3ar.js"></script>
-    <link rel="stylesheet" crossorigin href="/new/assets/index-IkZmeSsz.css">
-  </head>
-  <body>
-    <div id="root"></div>
-  </body>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>مكتبة المحيط - إدارة المبيعات</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- PWA Links & Favicon -->
+  <link rel="manifest" href="./manifest.json">
+  <link rel="icon" type="image/svg+xml" href="./Logo.svg">
+  <link rel="apple-touch-icon" href="./Logo.svg">
+  <meta name="theme-color" content="#0284c7">
+
+  <script>
+    // تسجيل Service Worker
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js')
+          .catch(err => console.log('Service Worker registration failed: ', err));
+      });
+    }
+  </script>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen font-sans">
+
+  <!-- شاشة تسجيل الدخول Overlay -->
+  <div id="login-modal" class="fixed inset-0 bg-slate-950/95 backdrop-blur-md flex items-center justify-center p-4 z-50">
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-8 max-w-md w-full shadow-2xl text-center">
+      
+      <!-- الشعار -->
+      <div class="flex justify-center mb-4">
+        <img src="Logo.svg" alt="مكتبة المحيط" class="w-28 h-28 object-contain drop-shadow-lg animate-pulse">
+      </div>
+      
+      <h2 class="text-2xl font-bold text-white mb-1">مكتبة المحيط</h2>
+      <p class="text-slate-400 text-sm mb-6">تسجيل الدخول للوصول لنظام إدارة المبيعات</p>
+      
+      <!-- نموذج الدخول -->
+      <form id="login-form" class="space-y-4">
+        <div>
+          <input type="text" id="username" placeholder="اسم المستخدم" required 
+                 class="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition">
+        </div>
+        <div>
+          <input type="password" id="password" placeholder="كلمة المرور" required 
+                 class="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition">
+        </div>
+        <button type="submit" 
+                class="w-full py-3 bg-sky-600 hover:bg-sky-500 active:scale-[0.98] text-white font-semibold rounded-xl shadow-lg shadow-sky-600/20 transition">
+          دخول النظام
+        </button>
+      </form>
+
+      <!-- زر تثبيت التطبيق PWA -->
+      <button id="install-btn" type="button" class="hidden mt-4 w-full py-2.5 border border-sky-500/30 bg-sky-500/10 hover:bg-sky-500/20 text-sky-400 rounded-xl text-sm font-medium transition flex items-center justify-center gap-2">
+        <span>📲 تثبيت التطبيق على الجهاز</span>
+      </button>
+
+    </div>
+  </div>
+
+  <!-- محتوى الموقع الأساسي (Dashboard) -->
+  <main class="p-6">
+    <header class="flex justify-between items-center pb-6 border-b border-slate-800">
+      <div class="flex items-center gap-3">
+        <img src="Logo.svg" alt="Logo" class="w-10 h-10">
+        <h1 class="text-xl font-bold text-sky-400">لوحة التحكم - مكتبة المحيط</h1>
+      </div>
+      <button id="logout-btn" class="text-sm bg-slate-800 hover:bg-slate-700 text-slate-300 px-4 py-2 rounded-lg transition">
+        تسجيل الخروج
+      </button>
+    </header>
+  </main>
+
+  <!-- سكريبت إدارة الواجهة والتثبيت -->
+  <script>
+    // التحكم بشاشة الدخول
+    const loginModal = document.getElementById('login-modal');
+    const loginForm = document.getElementById('login-form');
+    const logoutBtn = document.getElementById('logout-btn');
+
+    loginForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      loginModal.classList.add('hidden');
+    });
+
+    logoutBtn.addEventListener('click', () => {
+      loginModal.classList.remove('hidden');
+    });
+
+    // التقاط حدث تثبيت التطبيق PWA
+    let deferredPrompt;
+    const installBtn = document.getElementById('install-btn');
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      installBtn.classList.remove('hidden');
+    });
+
+    installBtn.addEventListener('click', async () => {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        if (outcome === 'accepted') {
+          installBtn.classList.add('hidden');
+        }
+        deferredPrompt = null;
+      }
+    });
+  </script>
+</body>
 </html>
