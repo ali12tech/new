@@ -1,9 +1,11 @@
-const CACHE_NAME = 'ocean-store-v4';
+const CACHE_NAME = 'ocean-store-v5';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
-  './Logo.svg',
-  './manifest.json'
+  './manifest.json',
+  './icon-192.png',
+  './icon-512.png',
+  './assets/Logo.svg'
 ];
 
 self.addEventListener('install', (event) => {
@@ -37,7 +39,6 @@ self.addEventListener('fetch', (event) => {
         return cachedResponse;
       }
       return fetch(event.request).catch(() => {
-        // في حال انقطاع الشبكة وطلب صفحة رئيسية
         if (event.request.mode === 'navigate') {
           return caches.match('./index.html');
         }
