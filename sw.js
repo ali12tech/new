@@ -1,4 +1,4 @@
-const CACHE_NAME = 'ocean-store-v6';
+const CACHE_NAME = 'ocean-store-v7';
 
 const ASSETS_TO_CACHE = [
   './',
@@ -6,7 +6,7 @@ const ASSETS_TO_CACHE = [
   './manifest.json',
   './icon-192.png',
   './icon-512.png',
-  './assets/Logo.svg'
+  './Logo.svg'
 ];
 
 self.addEventListener('install', (event) => {
